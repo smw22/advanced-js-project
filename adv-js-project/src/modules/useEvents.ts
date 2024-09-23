@@ -14,14 +14,14 @@ export const useEvents = () => {
     const newEventTitle = ref('');
 
     //Step 2: list of events stored in a li in a ref
-    const events = ref([]);
+    const events = ref<Event[]>([]);
 
     //Step 3: create a function to retrieve a new event from the list
     onMounted(() => {
         onSnapshot(eventsCollection, (snapshot) => {
         events.value = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data() //spread operator
+            ...doc.data() as Event, //spread operator
+            id: doc.id
             // title: doc.data().title,
         }))
         })
