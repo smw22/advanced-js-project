@@ -10,6 +10,7 @@ import eventBar from './components/eventBar.vue';
     <calendar />
     <loginButton />
     <eventBar />
+
   </div>
   
 </template>
