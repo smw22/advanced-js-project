@@ -3,6 +3,7 @@ import calendar from './components/calendar.vue';
 import EventBar from './components/eventBar.vue';
 import loginButton from './components/loginButton.vue';
 import eventBar from './components/eventBar.vue';
+import eventPage from './components/eventPage.vue';
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import eventBar from './components/eventBar.vue';
     <calendar />
     <loginButton />
     <eventBar />
+    <eventPage />
 
   </div>
   

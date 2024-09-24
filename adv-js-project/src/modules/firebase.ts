@@ -7,12 +7,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAaD4Dx0Vwzu6mCzl-cWc0C_zvVC1kxncQ",
-  authDomain: "calendar-app-311c8.firebaseapp.com",
-  projectId: "calendar-app-311c8",
-  storageBucket: "calendar-app-311c8.appspot.com",
-  messagingSenderId: "502752255733",
-  appId: "1:502752255733:web:e14a1d6dc9ee91ce5befbc"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
@@ -22,5 +22,8 @@ const db = getFirestore(app);
 const eventsFirebaseCollectionRef = 'events';
 const eventsCollection = collection(db, eventsFirebaseCollectionRef);
 
-export { db, eventsCollection, eventsFirebaseCollectionRef}
+const daysFirebaseCollectionRef = 'calendar-days';
+const calendarDaysCollection = collection(db, daysFirebaseCollectionRef);
+
+export { db, eventsCollection, eventsFirebaseCollectionRef, calendarDaysCollection, daysFirebaseCollectionRef}
 

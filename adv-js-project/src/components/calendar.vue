@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useEvents } from '../modules/useEvents';
+const { events, newEventTitle, newEventTime, addEvent, deleteEvent} = useEvents();
 
 </script>
 
@@ -17,7 +19,9 @@
             </div>
             <div class="days">
                 <div class="row">
-                    <div class="1">1</div>
+                    <div class="1">1 <br>
+                        <span v-for="event in events" :key="event.id"> {{ event.title }} football</span>
+                    </div>
                     <div class="2">2</div>
                     <div class="3">3</div>
                     <div class="4">4</div>
@@ -82,6 +86,13 @@ h1{
     margin-bottom: 25px;
 }
 
+span{
+    background-color: var(--blue-color);
+    padding: 2px 4px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 /* .calendar{
     display: flex;
     flex-direction: column;
@@ -91,6 +102,7 @@ h1{
 .day-names{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    gap: 2px
 }
 
 .day-names > div{
@@ -99,15 +111,26 @@ h1{
     width: 75px;
 }
 
+.days{
+    display: grid;
+    gap: 2px
+}
+
 .row{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    gap: 2px
 }
 
 .row > div{
     border: 1px solid #000;
     padding: 20px;
     height: 75px;
+    transition: all 0.15s;
+}
+
+.row > div:hover{
+    border: 5px solid var(--blue-color);
 }
 
 .off-day{

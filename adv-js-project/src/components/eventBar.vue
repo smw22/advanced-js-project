@@ -31,12 +31,12 @@
     border: 1px solid #000;
     border-radius: 0 16px 16px 0;
     height: 50vh;
-    width: 300px;
+    width: 250px;
 }
 
 .events-bar-title{
     padding: 25px 25px 25px 5px;
-    background-color: rgb(69, 143, 255);
+    background-color: var(--blue-color);
     border-radius: 0 16px 0 0;
 }
 

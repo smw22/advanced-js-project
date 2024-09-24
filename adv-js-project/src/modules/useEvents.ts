@@ -6,12 +6,14 @@ import { onSnapshot, addDoc, deleteDoc, doc } from 'firebase/firestore';
 interface Event {
     id: string;
     title: string;
+    time: string
 }
 
 export const useEvents = () => {
     
-    // //Step 1: new event title and stored in a ref
+    // //Step 1: new event title and time and stored in a ref
     const newEventTitle = ref('');
+    const newEventTime = ref('');
 
     //Step 2: list of events stored in a li in a ref
     const events = ref<Event[]>([]);
@@ -33,10 +35,12 @@ export const useEvents = () => {
         return; //checks if input is empty, then returns(stop function)
     
         await addDoc(eventsCollection, {
-        title: newEventTitle.value
+        title: newEventTitle.value,
+        time: newEventTime.value
         })
     
         newEventTitle.value = '';
+        newEventTime.value = '';
     }
     
     //Step 5: create a function to delete a event from the list
@@ -48,6 +52,7 @@ export const useEvents = () => {
     return {
         events, 
         newEventTitle,
+        newEventTime,
         addEvent,
         deleteEvent
     }
