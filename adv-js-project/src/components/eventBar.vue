@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="container">
+    <div class="barContainer">
         <div class="events-bar">
             <div class="events-bar-title">
                 <h2>Today Events:</h2>
@@ -19,7 +19,7 @@
 </template>
 
 <style scoped>
-.container{
+.barContainer{
     position: relative;
     align-items: center;
 }

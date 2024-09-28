@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { formVisibility } from '../modules/formVisibility';
+const { showForm } = formVisibility(); 
+
 import { useEvents } from '../modules/useEvents';
 const { events, newEventTitle, newEventTime, addEvent, deleteEvent} = useEvents();
 
@@ -19,48 +22,53 @@ const { events, newEventTitle, newEventTime, addEvent, deleteEvent} = useEvents(
             </div>
             <div class="days">
                 <div class="row">
-                    <div class="1">1 <br>
-                        <span v-for="event in events" :key="event.id"> {{ event.title }} football</span>
+                    <div id="day" @click="showForm" class="1">1 <br>
+                        <ul>
+                            <li v-for="event in events" :key="event.id">
+                                {{ event.title }} at {{ event.time }}
+                            </li>
+                        </ul>
+                        <!-- <span v-for="event in events" :key="event.id"> {{ event.title }} foot {{ event.time }}</span> -->
                     </div>
-                    <div class="2">2</div>
-                    <div class="3">3</div>
-                    <div class="4">4</div>
-                    <div class="5">5</div>
-                    <div class="6">6</div>
-                    <div class="7">7</div>
+                    <div id="day" class="2">2</div>
+                    <div id="day" class="3">3</div>
+                    <div id="day" class="4">4</div>
+                    <div id="day" class="5">5</div>
+                    <div id="day" class="6">6</div>
+                    <div id="day" class="7">7</div>
                 </div>
                 <div class="row">
-                    <div class="8">8</div>
-                    <div class="9">9</div>
-                    <div class="10">10</div>
-                    <div class="11">11</div>
-                    <div class="12">12</div>
-                    <div class="13">13</div>
-                    <div class="14">14</div>
+                    <div id="day" class="8">8</div>
+                    <div id="day" class="9">9</div>
+                    <div id="day" class="10">10</div>
+                    <div id="day" class="11">11</div>
+                    <div id="day"class="12">12</div>
+                    <div id="day" class="13">13</div>
+                    <div id="day" class="14">14</div>
                 </div>
                 <div class="row">
-                    <div class="15">15</div>
-                    <div class="16">16</div>
-                    <div class="17">17</div>
-                    <div class="18">18</div>
-                    <div class="19">19</div>
-                    <div class="20">20</div>
-                    <div class="21">21</div>
+                    <div id="day" class="15">15</div>
+                    <div id="day" class="16">16</div>
+                    <div id="day" class="17">17</div>
+                    <div id="day" class="18">18</div>
+                    <div id="day" class="19">19</div>
+                    <div id="day" class="20">20</div>
+                    <div id="day" class="21">21</div>
 
                 </div>
                 <div class="row">
-                    <div class="22">22</div>
-                    <div class="23">23</div>
-                    <div class="24">24</div>
-                    <div class="25">25</div>
-                    <div class="26">26</div>
-                    <div class="27">27</div>
-                    <div class="28">28</div>
+                    <div id="day" class="22">22</div>
+                    <div id="day" class="23">23</div>
+                    <div id="day" class="24">24</div>
+                    <div id="day" class="25">25</div>
+                    <div id="day" class="26">26</div>
+                    <div id="day" class="27">27</div>
+                    <div id="day" class="28">28</div>
                 </div>
                 <div class="row">
-                    <div class="29">29</div>
-                    <div class="30">30</div>
-                    <div class="31">31</div>
+                    <div id="day" class="29">29</div>
+                    <div id="day" class="30">30</div>
+                    <div id="day" class="31">31</div>
                     <div class="32 off-day">1</div>
                     <div class="33 off-day">2</div>
                     <div class="34 off-day">3</div>
@@ -86,18 +94,13 @@ h1{
     margin-bottom: 25px;
 }
 
-span{
+li{
     background-color: var(--blue-color);
     padding: 2px 4px;
     border-radius: 5px;
     cursor: pointer;
+    list-style-type: none;
 }
-
-/* .calendar{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-} */
 
 .day-names{
     display: grid;
