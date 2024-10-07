@@ -31,7 +31,7 @@ export const useEvents = () => {
     
     //Step 4: create a function to add a new event to the list
     const addEvent = async () => {
-        if (newEventTitle.value.trim() == '') 
+        if (newEventTitle.value.trim() == '' || newEventTime.value.trim() == '') 
         return; //checks if input is empty, then returns(stop function)
     
         await addDoc(eventsCollection, {

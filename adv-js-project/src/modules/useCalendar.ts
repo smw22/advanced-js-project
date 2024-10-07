@@ -1,22 +1,37 @@
-// import { ref, onMounted } from 'vue';
-// import { collection, getDocs, onSnapshot } from 'firebase/firestore';
-// import { db, calendarDaysCollection, daysFirebaseCollectionRef } from './firebase';
+import { ref, onMounted } from 'vue';
+import { getDocs } from 'firebase/firestore';
+import { calendarDaysCollection } from './firebase';
 
-// export function useCalendar() {
-//     const calendarDays = ref([]);
-//     const dayDate = ref('');
+interface CalendarDay {
+    id: string;
+    date: number;
+}
 
-//     const fetchCalendarDays = async () => {
-//         const daysSnapshot = await getDocs(calendarDaysCollection);
-//         calendarDays.value = daysSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-//     };
+export function useCalendar() {
 
-//     onMounted(() => {
-//         fetchCalendarDays();
-//     });
+    const calendarDays = ref<CalendarDay[]>([]);
+    const dayDate = ref('');
 
-//     return {
-//         calendarDays
-//     }
-// }
+    const fetchCalendarDays = async () => {
+        try{
+        const daysSnapshot = await getDocs(calendarDaysCollection);
+        calendarDays.value = daysSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data().date, // Adjust based on actual fields in your document
+        }));
+        }
+        catch (error) {
+            console.error("Error fetching:", error);
+        }
+    };
+
+    onMounted(() => {
+        fetchCalendarDays();
+    });
+
+    return {
+        calendarDays,
+        dayDate
+    }
+}
 

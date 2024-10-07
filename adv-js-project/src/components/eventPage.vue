@@ -3,7 +3,7 @@ import { formVisibility } from '../modules/formVisibility';
 const { isFormVisible, hideForm } = formVisibility(); 
 
 import { useEvents } from '../modules/useEvents';
-const { events, newEventTitle, newEventTime, addEvent, deleteEvent} = useEvents();
+const { events, newEventTitle, newEventTime, addEvent } = useEvents();
 
 </script>
 
@@ -16,19 +16,21 @@ const { events, newEventTitle, newEventTime, addEvent, deleteEvent} = useEvents(
         <form action="">
             <p>
                 <label for="event-title">Title</label>
-                <input v-model="newEventTitle" id="event-title" type="text" placeholder="Add title" />
+                <input id="event-title" type="text" placeholder="Add title" v-model="newEventTitle" />
             </p>
 
             <p>
                 <label for="event-time">Time</label>
-                <input v-model="newEventTime" type="datetime" name="" id="event-time" placeholder="Add time"/>
+                <input type="datetime" name="" id="event-time" placeholder="Add time" v-model="newEventTime" />
             </p>
 
             <p>
                 <button type="submit" @click="addEvent">Add Event</button>
             </p>
 
+
         </form>
+
         
     </div>
 
