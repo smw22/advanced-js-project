@@ -33,6 +33,8 @@ export const useEvents = () => {
     const addEvent = async () => {
         if (newEventTitle.value.trim() == '' || newEventTime.value.trim() == '') 
         return; //checks if input is empty, then returns(stop function)
+
+        console.log("test")
     
         await addDoc(eventsCollection, {
         title: newEventTitle.value,
@@ -41,6 +43,7 @@ export const useEvents = () => {
     
         newEventTitle.value = '';
         newEventTime.value = '';
+        console.log('added event');
     }
     
     //Step 5: create a function to delete a event from the list

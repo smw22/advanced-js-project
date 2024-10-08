@@ -3,7 +3,10 @@ import { formVisibility } from '../modules/formVisibility';
 const { showForm } = formVisibility(); 
 
 import { useEvents } from '../modules/useEvents';
-const { events, newEventTitle, newEventTime, deleteEvent} = useEvents();
+const { events, /* newEventTitle, newEventTime, deleteEvent */} = useEvents();
+
+// import { useCalendar } from '../modules/useCalendar';
+// const { calendarDays, dayDate, addDate } = useCalendar();
 
 </script>
 
@@ -26,7 +29,6 @@ const { events, newEventTitle, newEventTime, deleteEvent} = useEvents();
                         <ul>
                             <li v-for="event in events" :key="event.id">
                                 {{ event.title }} at {{ event.time }}
-                                {{ newEventTitle }}
                             </li>
                         </ul>
                         <!-- <span v-for="event in events" :key="event.id"> {{ event.title }} foot {{ event.time }}</span> -->

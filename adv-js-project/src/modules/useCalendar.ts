@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue';
-import { getDocs } from 'firebase/firestore';
+import { getDocs, addDoc } from 'firebase/firestore';
 import { calendarDaysCollection } from './firebase';
 
 interface CalendarDay {
@@ -29,9 +29,19 @@ export function useCalendar() {
         fetchCalendarDays();
     });
 
+    // const addDate = async () => {
+    //     if (dayDate.value.trim() == '') 
+    //     return;
+
+    //     await addDoc(calendarDaysCollection, {
+    //         date: dayDate.value,
+    //     })
+    // }
+
     return {
         calendarDays,
-        dayDate
+        dayDate,
+        // addDate,
     }
 }
 
