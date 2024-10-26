@@ -3,7 +3,7 @@ import { formVisibility } from '../modules/formVisibility';
 const { showForm } = formVisibility(); 
 
 import { useEvents } from '../modules/useEvents';
-const { events, /* newEventTitle, newEventTime, deleteEvent */} = useEvents();
+const { events, newEventTitle, editingId, enterEditMode, deleteEvent, updateEvent} = useEvents();
 
 // import { useCalendar } from '../modules/useCalendar';
 // const { calendarDays, dayDate, addDate } = useCalendar();
@@ -25,10 +25,36 @@ const { events, /* newEventTitle, newEventTime, deleteEvent */} = useEvents();
             </div>
             <div class="days">
                 <div class="row">
-                    <div id="day" @click="showForm" class="1">1 <br>
+                    <div id="day" class="1"><span>1</span> <span class="add-event" @click="showForm">+</span> <br>
                         <ul>
+                            <!-- <li v-for="event in events" :key="event.id">
+                                {{ event.title }} at {{ event.time }} 
+                                <div class="event-buttons">
+                                    <button id="edit-button" @click="() => updateEvent(event.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+                                    </button>
+                                    <button id="cross-button" @click="() => deleteEvent(event.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"><path fill="#f92f60" d="M24.879 2.879A3 3 0 1 1 29.12 7.12l-8.79 8.79a.125.125 0 0 0 0 .177l8.79 8.79a3 3 0 1 1-4.242 4.243l-8.79-8.79a.125.125 0 0 0-.177 0l-8.79 8.79a3 3 0 1 1-4.243-4.242l8.79-8.79a.125.125 0 0 0 0-.177l-8.79-8.79A3 3 0 0 1 7.12 2.878l8.79 8.79a.125.125 0 0 0 .177 0z"/></svg>
+                                    </button>
+                                </div>
+                            </li> -->
                             <li v-for="event in events" :key="event.id">
-                                {{ event.title }} at {{ event.time }}
+                                <div v-if="editingId === event.id">
+                                    <input v-model="newEventTitle" placeholder="New title"/>
+                                    <button @click="updateEvent(event.id, newEventTitle)">Save</button>
+                                    <button @click="editingId = null">Cancel</button>
+                                </div>
+                                <div id="event-container" v-else>
+                                    {{ event.title }} at {{ event.time }} 
+                                    <div class="event-buttons">
+                                        <button @click="enterEditMode(event)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+                                        </button>
+                                        <button @click="deleteEvent(event.id)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"><path fill="#f92f60" d="M24.879 2.879A3 3 0 1 1 29.12 7.12l-8.79 8.79a.125.125 0 0 0 0 .177l8.79 8.79a3 3 0 1 1-4.242 4.243l-8.79-8.79a.125.125 0 0 0-.177 0l-8.79 8.79a3 3 0 1 1-4.243-4.242l8.79-8.79a.125.125 0 0 0 0-.177l-8.79-8.79A3 3 0 0 1 7.12 2.878l8.79 8.79a.125.125 0 0 0 .177 0z"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                         <!-- <span v-for="event in events" :key="event.id"> {{ event.title }} foot {{ event.time }}</span> -->
@@ -97,12 +123,36 @@ h1{
     margin-bottom: 25px;
 }
 
+ul{
+    padding-top: 20px;
+}
+
 li{
     background-color: var(--blue-color);
     padding: 2px 4px;
     border-radius: 5px;
-    cursor: pointer;
     list-style-type: none;
+    display: flex;
+}
+
+.add-event{
+    cursor: pointer;
+    background-color: rgb(241, 40, 40);
+    padding: 5px 10px;
+    border-radius: 25%;
+    float: right;
+}
+
+#event-container{
+    display: flex;
+}
+
+.event-buttons{
+    margin-left: 10px;
+}
+
+button{
+    cursor: pointer;
 }
 
 .day-names{
@@ -114,7 +164,7 @@ li{
 .day-names > div{
     padding: 20px 30px;
     border: 1px solid #000;
-    width: 75px;
+    /* width: 75px; */
 }
 
 .days{
@@ -131,7 +181,8 @@ li{
 .row > div{
     border: 1px solid #000;
     padding: 20px;
-    height: 75px;
+    min-height: 75px;
+    height: fit-content;
     transition: all 0.15s;
 }
 

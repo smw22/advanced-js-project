@@ -1,6 +1,6 @@
 import { ref, onMounted } from 'vue';
 import { eventsCollection, eventsFirebaseCollectionRef, db } from "./firebase";
-import { onSnapshot, addDoc, deleteDoc, doc } from 'firebase/firestore';
+import { onSnapshot, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 // Define an interface for event objects
 interface Event {
@@ -14,6 +14,7 @@ export const useEvents = () => {
     // //Step 1: new event title and time and stored in a ref
     const newEventTitle = ref('');
     const newEventTime = ref('');
+    const editingId = ref<string | null>(null);
 
     //Step 2: list of events stored in a li in a ref
     const events = ref<Event[]>([]);
@@ -52,11 +53,35 @@ export const useEvents = () => {
         await deleteDoc(doc(db, eventsFirebaseCollectionRef, id))
     }
 
+    //Step 6: create a function to edit a event from the list
+    const updateEvent = async (id:string, newEventTitle: string) => {
+        console.log("editing an event");
+        const eventDocRef = doc(db, eventsFirebaseCollectionRef, id);
+        if (newEventTitle.trim() !== '') {
+            await updateDoc(eventDocRef, {
+              title: newEventTitle
+            });
+            console.log(`Updated event with id: ${id} to new title: ${newEventTitle}`);
+        }
+        else{
+            return;
+        }
+        editingId.value = null; // Reset editingId to exit edit mode
+    }
+
+    const enterEditMode = (event: Event) => {
+        editingId.value = event.id; // Set the editing ID to the selected event
+        newEventTitle.value = event.title; // Set the input value to the current title
+    };
+
     return {
         events, 
         newEventTitle,
         newEventTime,
+        editingId,
+        enterEditMode,
         addEvent,
-        deleteEvent
+        deleteEvent,
+        updateEvent
     }
 }
