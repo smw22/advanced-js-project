@@ -1,20 +1,31 @@
 import { ref } from 'vue';
 
-const isFormVisible = ref(false); // Initially hidden
+const eventFormVisible = ref(false);
+const loginFormVisible = ref(false);
 
 export function formVisibility() {
-
-    const showForm = () => {
-        isFormVisible.value = true;
+    const showEventForm = () => {
+        eventFormVisible.value = true;
     };
 
-    const hideForm = () => {
-        isFormVisible.value = false;
+    const hideEventForm = () => {
+        eventFormVisible.value = false;
+    };
+
+    const showLoginForm = () => {
+        loginFormVisible.value = true;
+    };
+
+    const hideLoginForm = () => {
+        loginFormVisible.value = false;
     };
 
     return {
-        isFormVisible,
-        showForm,
-        hideForm,
+        eventFormVisible,
+        loginFormVisible,
+        showEventForm,
+        hideEventForm,
+        showLoginForm,
+        hideLoginForm
     };
 }

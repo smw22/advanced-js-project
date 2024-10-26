@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { formVisibility } from '../modules/formVisibility';
-const { showForm } = formVisibility(); 
+const { showEventForm } = formVisibility(); 
 
 import { useEvents } from '../modules/useEvents';
-const { events, newEventTitle, editingId, enterEditMode, deleteEvent, updateEvent} = useEvents();
+const { events, newEventTitle, newEventTime, editingId, enterEditMode, deleteEvent, updateEvent} = useEvents();
 
 // import { useCalendar } from '../modules/useCalendar';
 // const { calendarDays, dayDate, addDate } = useCalendar();
@@ -25,7 +25,7 @@ const { events, newEventTitle, editingId, enterEditMode, deleteEvent, updateEven
             </div>
             <div class="days">
                 <div class="row">
-                    <div id="day" class="1"><span>1</span> <span class="add-event" @click="showForm">+</span> <br>
+                    <div id="day" class="1"><span>1</span> <span class="add-event-button" @click="showEventForm">+</span> <br>
                         <ul>
                             <!-- <li v-for="event in events" :key="event.id">
                                 {{ event.title }} at {{ event.time }} 
@@ -41,7 +41,8 @@ const { events, newEventTitle, editingId, enterEditMode, deleteEvent, updateEven
                             <li v-for="event in events" :key="event.id">
                                 <div v-if="editingId === event.id">
                                     <input v-model="newEventTitle" placeholder="New title"/>
-                                    <button @click="updateEvent(event.id, newEventTitle)">Save</button>
+                                    <input v-model="newEventTime" placeholder="New time"/>
+                                    <button @click="updateEvent(event.id, newEventTitle, newEventTime)">Save</button>
                                     <button @click="editingId = null">Cancel</button>
                                 </div>
                                 <div id="event-container" v-else>
@@ -57,7 +58,6 @@ const { events, newEventTitle, editingId, enterEditMode, deleteEvent, updateEven
                                 </div>
                             </li>
                         </ul>
-                        <!-- <span v-for="event in events" :key="event.id"> {{ event.title }} foot {{ event.time }}</span> -->
                     </div>
                     <div id="day" class="2">2</div>
                     <div id="day" class="3">3</div>
@@ -135,7 +135,7 @@ li{
     display: flex;
 }
 
-.add-event{
+.add-event-button{
     cursor: pointer;
     background-color: rgb(241, 40, 40);
     padding: 5px 10px;

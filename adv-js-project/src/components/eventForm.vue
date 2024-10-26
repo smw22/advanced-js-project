@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { formVisibility } from '../modules/formVisibility';
-const { isFormVisible, hideForm } = formVisibility(); 
+const { eventFormVisible, hideEventForm } = formVisibility(); 
 
 import { useEvents } from '../modules/useEvents';
-const {/*  events, */ newEventTitle, newEventTime, addEvent } = useEvents();
+const {newEventTitle, newEventTime, addEvent } = useEvents();
 
 </script>
 
 <template>
-    <div class="formContainer" v-show="isFormVisible">
-        <div class="cross" @click="hideForm">
+    <div class="formContainer" v-show="eventFormVisible">
+        <div class="cross" @click="hideEventForm">
             <span></span>
             <span></span>
         </div>
@@ -18,14 +18,10 @@ const {/*  events, */ newEventTitle, newEventTime, addEvent } = useEvents();
             <label for="event-title">Title</label>
             <input id="event-title" type="text" placeholder="Add title" v-model="newEventTitle" />
         
-
-        
             <label for="event-time">Time</label>
             <input type="datetime" name="" id="event-time" placeholder="Add time" v-model="newEventTime" />
                         
-
-            <button type="submit" @click.prevent="addEvent">Add Event</button>
-
+            <button type="submit" @click.prevent="addEvent(); hideEventForm()">Add Event</button>
 
         </form>
 
@@ -37,10 +33,9 @@ const {/*  events, */ newEventTitle, newEventTime, addEvent } = useEvents();
 <style scoped>
 .formContainer{
     position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     margin: auto;
     display: block;
 }
@@ -50,7 +45,7 @@ const {/*  events, */ newEventTitle, newEventTime, addEvent } = useEvents();
     cursor: pointer;
     width: 45px;
     height: 45px;
-    top: 5%;
+    top: 10%;
     left: 5%;
 }
 
@@ -63,7 +58,7 @@ const {/*  events, */ newEventTitle, newEventTime, addEvent } = useEvents();
 }
 
 .cross > span:first-child{
-    transform: rotate(45deg);
+    transform:  translate(2px, 2px) rotate(45deg);
 }
 
 .cross > span:last-child{
@@ -75,7 +70,8 @@ form{
     flex-direction: column;
     background-color: var(--blue-color);
     padding: 25px;
-    height: 100vh;
+    height: 50vh;
+    width: 600px;
     align-items: center;
     justify-content: center;
     gap: 25px;

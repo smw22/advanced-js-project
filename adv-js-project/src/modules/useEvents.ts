@@ -54,12 +54,13 @@ export const useEvents = () => {
     }
 
     //Step 6: create a function to edit a event from the list
-    const updateEvent = async (id:string, newEventTitle: string) => {
+    const updateEvent = async (id:string, newEventTitle: string, newEventTime:string) => {
         console.log("editing an event");
         const eventDocRef = doc(db, eventsFirebaseCollectionRef, id);
-        if (newEventTitle.trim() !== '') {
+        if (newEventTitle.trim() !== '' || newEventTime.trim() !== '') {
             await updateDoc(eventDocRef, {
-              title: newEventTitle
+              title: newEventTitle,
+              time: newEventTime
             });
             console.log(`Updated event with id: ${id} to new title: ${newEventTitle}`);
         }
